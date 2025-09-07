@@ -63,25 +63,4 @@ public class IssuedBookService {
         return issuedBookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("IssuedBook not found with id: " + id));
     }
-
-//    public IssuedBook issueBook(User user, Book book) {
-//        // ✅ Check if the book is already issued to this user
-//        Optional<IssuedBook> existing = issuedBookRepository.findByUserAndBookAndStatus(user, book, "Issued");
-//        if (existing.isPresent()) {
-//            throw new RuntimeException("This book is already issued to this User!");
-//        }
-//
-//        // ✅ Create new issued book
-//        IssuedBook issuedBook = IssuedBook.builder()
-//                .user(user)
-//                .book(book)
-//                .issueDate(LocalDate.now())
-//                .dueDate(LocalDate.now().plusDays(14)) // default 2 weeks
-//                .status("Issued")
-//                .fine(0)
-//                .build();
-//
-//        // ✅ Save to DB
-//        return issuedBookRepository.save(issuedBook);
-//    }
 }

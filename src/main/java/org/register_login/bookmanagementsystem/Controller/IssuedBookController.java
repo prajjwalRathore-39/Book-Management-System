@@ -67,7 +67,7 @@ public class IssuedBookController {
     @PostMapping("/return/{id}")
     public String returnBook(@PathVariable Long id) {
         IssuedBook issuedBook = issuedBookService.getIssuedBookById(id);
-        issuedBookService.returnBook(issuedBook);  // ✅ Correct
+        issuedBookService.returnBook(issuedBook);
         return "redirect:/user/dashboard";
     }
 }
