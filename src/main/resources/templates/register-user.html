@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1e1e2f; /* dark background */
+        }
+
+        .register-container {
+            background-color: #2c2c3a; /* dark container */
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #cccccc;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #555555;
+            border-radius: 5px;
+            background-color: #3a3a4a;
+            color: #ffffff;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input::placeholder {
+            color: #aaaaaa;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #6c63ff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6c63ff;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #574fd6;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        .message a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .message a:hover {
+            color: #574fd6;
+        }
+
+        p.error {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="register-container">
+    <h2>Register</h2>
+
+    <!-- Error message if exists -->
+    <p th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
+
+    <form th:action="@{/register}" method="post" th:object="${user}">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="Enter your full name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}" placeholder="Enter your password" required />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Re-enter your password" required />
+
+        <label for="role">Role</label>
+        <select id="role" th:field="*{role}" required>
+            <option value="" disabled selected>Select role</option>
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="message">
+        Already have an account? <a th:href="@{/login}">Login here</a>
+    </div>
+</div>
+</body>
+</html>

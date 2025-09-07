@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Users</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e2f;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .top-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .top-actions button {
+            padding: 10px 20px;
+            background-color: #6c63ff;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .top-actions button:hover {
+            background-color: #574fd6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2c2c3a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3a3a4a;
+            color: #6c63ff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2f2f40;
+        }
+
+        tr:hover {
+            background-color: #44445a;
+        }
+
+        .action-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #6c63ff;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .action-button:hover {
+            color: #574fd6;
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+<div class="dashboard-container">
+    <h1>Manage Users</h1>
+
+    <!-- Top Action Buttons -->
+    <div class="top-actions">
+        <!-- Home Button -->
+        <form th:action="@{/admin/dashboard}" method="get">
+            <button type="submit" title="Go to Dashboard">
+                <i class="fas fa-home"></i>
+            </button>
+        </form>
+
+        <!-- Add User Button -->
+        <form th:action="@{/register}" method="get">
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+
+    <!-- User List Table -->
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email/Username</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}">John Doe</td>
+            <td th:text="${user.email}">john@example.com</td>
+            <td th:text="${user.role}">ROLE_USER</td>
+            <td>
+                <form th:action="@{'/admin/users/edit/' + ${user.id}}" method="get">
+                    <button type="submit" class="action-button" title="Edit User">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
